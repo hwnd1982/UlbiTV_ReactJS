@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import ClassInput from './components/ClassInput';
 import Counter from './components/Counter';
 import PostsList from './components/PostsList';
@@ -8,6 +8,7 @@ import './styles/App.css';
 import PostFilter from './components/PostFilter';
 import MyModal from './components/UI/MyModal/MyModal';
 import MyButton from './components/UI/button/MyButton';
+import { usePosts } from './hooks/usePosts';
 
 function App() {
   const 
@@ -30,15 +31,7 @@ function App() {
     ]),
     [filter, setFilter] = useState({sort: '', query: ''}),
     [modal, setModal] = useState(false),
-    sortedPosts = useMemo(() => {
-      if (filter.sort) {
-        return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]));
-      }
-      return posts;
-    }, [filter.sort, posts]),
-    sortedAndSearchedPosts = useMemo(() => {
-      return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()));
-    }, [filter.query, sortedPosts]),
+    sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query),
     createPost = newPost => {
       setPosts([...posts, newPost]);
       setModal(false)
@@ -49,10 +42,8 @@ function App() {
     
   return (
     <div className="App">
-      <ClassInput/>
       <hr/>
-      <Counter/>
-      <Counter/>
+      <ClassInput/>
       <Counter/>
       <hr/>
       <MyButton

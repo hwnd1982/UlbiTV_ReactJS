@@ -3,9 +3,10 @@ import React from "react";
 class ClassInput extends React.Component {
   constructor(props) {
     super(props);
+    this.defState = 'Введите текст...';
     this.state = {
-      value: 'Введите текст...'
-    }
+      value: this.defState
+    };
   }
   render() {
     return (
@@ -13,8 +14,19 @@ class ClassInput extends React.Component {
         <h1> {this.state.value}</h1>
         <input
           type="text"
-          value={this.state.value}
-          onChange={event => this.setState({ value: event.target.value })}
+          placeholder={this.defState}
+          value={this.state.value !== this.defState ? this.state.value : ''}
+          onFocus={event => {
+            if (this.state.value === this.defState) {
+              event.target.value = '';
+            }
+          }}
+          onChange={event => {
+            if (!event.target.value) {
+              this.setState({ value: this.defState });
+            }
+            else this.setState({ value: event.target.value });
+          }}
         />
       </div>
     )
