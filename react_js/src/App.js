@@ -6,6 +6,8 @@ import PostForm from './components/PostForm';
 import generateHexString from './modules/generateHexString';
 import './styles/App.css';
 import PostFilter from './components/PostFilter';
+import MyModal from './components/UI/MyModal/MyModal';
+import MyButton from './components/UI/button/MyButton';
 
 function App() {
   const 
@@ -27,6 +29,7 @@ function App() {
       }
     ]),
     [filter, setFilter] = useState({sort: '', query: ''}),
+    [modal, setModal] = useState(false),
     sortedPosts = useMemo(() => {
       if (filter.sort) {
         return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]));
@@ -36,8 +39,9 @@ function App() {
     sortedAndSearchedPosts = useMemo(() => {
       return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()));
     }, [filter.query, sortedPosts]),
-    ceatePost = newPost => {
+    createPost = newPost => {
       setPosts([...posts, newPost]);
+      setModal(false)
     },
     removePost = post => {
       setPosts(posts.filter(item => item.id !== post.id));
@@ -51,8 +55,18 @@ function App() {
       <Counter/>
       <Counter/>
       <hr/>
-      <PostForm create={ceatePost} />
-      <hr/>
+      <MyButton
+        style={{marginBottom: '15px'}}
+        onClick={() => setModal(true)}
+      >
+        Создать пост
+      </MyButton>
+      <MyModal
+        visible={modal}
+        setVisible={setModal}
+      >
+        <PostForm create={createPost} />
+      </MyModal>
       <PostFilter
         filter={filter}
         setFilter={setFilter}
