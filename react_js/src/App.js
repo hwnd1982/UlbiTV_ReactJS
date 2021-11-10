@@ -11,16 +11,23 @@ import { usePosts } from './hooks/usePosts';
 import PostService from './components/API/PostService';
 import Loader from './components/UI/Loader/Loader';
 import { useFetching } from './hooks/useFetching';
+import { getPageCount } from './utils/pages'
+import Pagination from './components/UI/pagination/Pagination';
 
 function App() {
   const 
     [posts, setPosts] = useState([]),
     [filter, setFilter] = useState({sort: '', query: ''}),
     [modal, setModal] = useState(false),
+    [totalPages, setTotalPages] = useState(0),
+    [limin] = useState(10),
+    [page, setPage] = useState(1),
     [fetchPosts, isPostsLoading, postError] = useFetching(async() => {
-        const posts = await PostService.getAllPosts();
+        const response = await PostService.getAllPosts(limin, page),
+        totalCount = response.headers['x-total-count'];
 
-        setPosts(posts);
+        setPosts(response.data);
+        setTotalPages(getPageCount(totalCount, limin))
     }),
     sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query),
     createPost = newPost => {
@@ -30,9 +37,9 @@ function App() {
     removePost = post => {
       setPosts(posts.filter(item => item.id !== post.id));
     };
-  
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => fetchPosts(), []);
+  useEffect(() => fetchPosts(), [page]);
   return (
     <div className="App">
       <hr/>
@@ -55,20 +62,27 @@ function App() {
         filter={filter}
         setFilter={setFilter}
       />
-      {postError ?
-        <h1 style={{
-          display: 'flex',
-          justifyContent: 'center',
-          color: 'orangered',
-          marginTop: '50px'
-        }}>Произошла ошибка: {postError}</h1> :
-        isPostsLoading ?
-          <Loader /> :
-          <PostsList
-            remove={removePost}
-            posts={sortedAndSearchedPosts} 
-            title="Список постов..."
-          />}
+      {
+        postError ?
+          <h1 style={{
+            display: 'flex',
+            justifyContent: 'center',
+            color: 'orangered',
+            marginTop: '50px'
+          }}>Произошла ошибка: {postError}</h1> :
+          isPostsLoading ?
+            <Loader /> :
+            <PostsList
+              remove={removePost}
+              posts={sortedAndSearchedPosts} 
+              title="Список постов..."
+            />
+      }
+      <Pagination
+        totalPages={totalPages}
+        page={page}
+        changePage={setPage}
+      />
     </div>
   );
 }

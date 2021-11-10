@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MyButton from "./UI/button/MyButton";
 import MyInput from "./UI/input/MyInput";
-import generateHexString from '../modules/generateHexString';
+import generateHexKey from '../utils/generateHexKey';
 
 const PostForm = ({ create }) => {
   const
@@ -9,7 +9,7 @@ const PostForm = ({ create }) => {
     addNewPost = event => {
       event.preventDefault();
       const newPost = {
-        ...post, id: generateHexString(10)
+        ...post, id: generateHexKey(10)
       };
       create(newPost);
       setPost({ title: '', body: '' });

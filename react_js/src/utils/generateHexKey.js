@@ -1,4 +1,4 @@
-const generateHexString = length => {
+const generateHexKey = length => {
   let ret = '';
   while (ret.length < length) {
     ret += Math.random().toString(16).substring(2);
@@ -6,4 +6,4 @@ const generateHexString = length => {
   return ret.substring(0,length);
 };
 
-export default generateHexString;
+export default generateHexKey;
