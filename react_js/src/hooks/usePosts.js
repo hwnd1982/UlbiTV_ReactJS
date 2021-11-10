@@ -15,8 +15,9 @@ export const
     const
       sortedPosts = useSortesPost(posts, sort),
       sortedAndSearchedPosts = useMemo(() => {
-      return sortedPosts.filter(post => post.title.toLowerCase().includes(query.toLowerCase()));
-    }, [query, sortedPosts]);
+        if (sortedPosts)
+          return sortedPosts.filter(post => post.title.toLowerCase().includes(query.toLowerCase()));
+      }, [query, sortedPosts]);
 
     return sortedAndSearchedPosts;
   };

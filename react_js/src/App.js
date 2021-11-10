@@ -1,37 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ClassInput from './components/ClassInput';
 import Counter from './components/Counter';
 import PostsList from './components/PostsList';
 import PostForm from './components/PostForm';
-import generateHexString from './modules/generateHexString';
 import './styles/App.css';
 import PostFilter from './components/PostFilter';
 import MyModal from './components/UI/MyModal/MyModal';
 import MyButton from './components/UI/button/MyButton';
 import { usePosts } from './hooks/usePosts';
+import PostService from './components/API/PostService';
+import Loader from './components/UI/Loader/Loader';
 
 function App() {
   const 
-    [posts, setPosts] = useState([
-      {
-        id: generateHexString(10),
-        title: 'JavaScript',
-        body: 'Язык программирования.'
-      },
-      {
-        id: generateHexString(10),
-        title: 'React',
-        body: 'Библиотека с открытым исходным кодом для разработки пользовательских интерфейсов.'
-      },
-      {
-        id: generateHexString(10),
-        title: 'Vue',
-        body: 'Фреймворк с открытым исходным кодом для создания пользовательских интерфейсов.'
-      }
-    ]),
+    [posts, setPosts] = useState([]),
     [filter, setFilter] = useState({sort: '', query: ''}),
     [modal, setModal] = useState(false),
+    [isPostsLoadung, setIsPostsLoadung] = useState(false),
     sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query),
+    fetchPosts = async () => {
+      setIsPostsLoadung(true);
+      setTimeout(async () => {
+        const posts = await PostService.getAllPosts();
+
+        setPosts(posts);
+        setIsPostsLoadung(false);
+      }, 3000);
+    },
     createPost = newPost => {
       setPosts([...posts, newPost]);
       setModal(false)
@@ -39,7 +34,10 @@ function App() {
     removePost = post => {
       setPosts(posts.filter(item => item.id !== post.id));
     };
-    
+  
+  useEffect(() => {
+    fetchPosts();
+  }, []);
   return (
     <div className="App">
       <hr/>
@@ -62,11 +60,13 @@ function App() {
         filter={filter}
         setFilter={setFilter}
       />
-      <PostsList
-        remove={removePost}
-        posts={sortedAndSearchedPosts} 
-        title="Список постов..."
-      />
+      {isPostsLoadung ?
+        <Loader /> :
+        <PostsList
+          remove={removePost}
+          posts={sortedAndSearchedPosts} 
+          title="Список постов..."
+        />}
     </div>
   );
 }

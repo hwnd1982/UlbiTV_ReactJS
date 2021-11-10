@@ -1,0 +1,29 @@
+.wrap {
+  display: flex;
+  justify-content: center; 
+  margin-top: 50px;
+}
+
+.loader {
+  width: 100px;
+  width: 100px;
+  animation: rotate 2s infinite linear;
+}
+.circle {
+  stroke-dasharray: 15.944, 15;
+  fill: transparent;
+  stroke: teal;
+  stroke-width: 5px;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+  }
+  to {
+    transform: rotate(360deg) scale(1);
+  }
+}
