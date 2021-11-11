@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import ClassInput from './components/ClassInput';
 import Counter from './components/UI/counter/Counter';
 import PostsList from './components/PostsList';
 import PostForm from './components/PostForm';
@@ -42,50 +41,22 @@ function App() {
   useEffect(() => fetchPosts(), [page, limit]);
   return (
     <div className="App">
-      <hr/>
-      <ClassInput/>
-      <hr/>
-      <MyButton
-        style={{marginBottom: '15px'}}
-        onClick={() => setModal(true)}
-      >
+      <MyButton onClick={() => setModal(true)}>
         Создать пост
       </MyButton>
-      <MyModal
-        visible={modal}
-        setVisible={setModal}
-      >
+      <PostFilter filter={filter} setFilter={setFilter} >
+        <Counter setLimit={setLimit} />    
+      </PostFilter>
+      <MyModal visible={modal} setVisible={setModal}>
         <PostForm create={createPost} />
       </MyModal>
-      <PostFilter
-        filter={filter}
-        setFilter={setFilter}
-      >
-        <Counter 
-          setLimit={setLimit}
-        />
-      </PostFilter>
       {
         postError ?
-          <h1 style={{
-            display: 'flex',
-            justifyContent: 'center',
-            color: 'orangered',
-            marginTop: '50px'
-          }}>Произошла ошибка: {postError}</h1> :
+          <h1 className='error-message'>Произошла ошибка: {postError}</h1> :
           isPostsLoading ?
-            <Loader /> :
-            <PostsList
-              remove={removePost}
-              posts={sortedAndSearchedPosts} 
-              title="Список постов..."
-            />
+            <Loader /> : <PostsList remove={removePost} posts={sortedAndSearchedPosts} title="Список постов..." />
       }
-      <Pagination
-        totalPages={totalPages}
-        page={page}
-        changePage={setPage}
-      />
+      <Pagination totalPages={totalPages} page={page} changePage={setPage} />
     </div>
   );
 }
