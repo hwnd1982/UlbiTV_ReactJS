@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import ClassInput from './components/ClassInput';
-import Counter from './components/Counter';
+import Counter from './components/UI/counter/Counter';
 import PostsList from './components/PostsList';
 import PostForm from './components/PostForm';
 import './styles/App.css';
@@ -20,14 +21,14 @@ function App() {
     [filter, setFilter] = useState({sort: '', query: ''}),
     [modal, setModal] = useState(false),
     [totalPages, setTotalPages] = useState(0),
-    [limin] = useState(10),
+    [limit, setLimit] = useState(10),
     [page, setPage] = useState(1),
     [fetchPosts, isPostsLoading, postError] = useFetching(async() => {
-        const response = await PostService.getAllPosts(limin, page),
+        const response = await PostService.getAllPosts(limit, page),
         totalCount = response.headers['x-total-count'];
 
         setPosts(response.data);
-        setTotalPages(getPageCount(totalCount, limin))
+        setTotalPages(getPageCount(totalCount, limit))
     }),
     sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query),
     createPost = newPost => {
@@ -37,14 +38,12 @@ function App() {
     removePost = post => {
       setPosts(posts.filter(item => item.id !== post.id));
     };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => fetchPosts(), [page]);
+  
+  useEffect(() => fetchPosts(), [page, limit]);
   return (
     <div className="App">
       <hr/>
       <ClassInput/>
-      <Counter/>
       <hr/>
       <MyButton
         style={{marginBottom: '15px'}}
@@ -61,7 +60,11 @@ function App() {
       <PostFilter
         filter={filter}
         setFilter={setFilter}
-      />
+      >
+        <Counter 
+          setLimit={setLimit}
+        />
+      </PostFilter>
       {
         postError ?
           <h1 style={{

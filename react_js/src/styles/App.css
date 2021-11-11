@@ -17,6 +17,12 @@ hr {
   width: 800px;
 }
 
+.flex-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .post {
   display: flex;
   padding: 15px;
@@ -42,26 +48,4 @@ hr {
 .post-exit-active {
   transform: translateX(-100%);
   transition: all 500ms ease-in;
-}
-
-.page__wrapper {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  gap: 3px;
-}
-
-.page {
-  font-size: 14px;
-  text-align: center;
-  line-height: 15px;
-  min-width: 40px;
-  padding: 10px;
-  border: 1px solid teal;
-  cursor: pointer;
-}
-
-.page__current {
-  border: 2px solid orange;
-  font-weight: bold;
 }

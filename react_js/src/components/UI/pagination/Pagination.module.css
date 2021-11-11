@@ -1,0 +1,25 @@
+.pageWrapper {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+}
+
+.page {
+  font-size: 13px;
+  text-align: center;
+  line-height: 15px;
+  min-width: 30px;
+  padding: 5px;
+  border: 1px solid teal;
+  color: teal;
+  cursor: pointer;
+}
+
+.pageCurrent {
+  color: orange;
+  border: 2px solid orange;
+  font-weight: bold;
+  transform: scale(1.1);
+}

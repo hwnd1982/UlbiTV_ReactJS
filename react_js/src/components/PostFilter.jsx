@@ -2,7 +2,7 @@ import React from "react";
 import MyInput from "./UI/input/MyInput";
 import MySelect from "./UI/select/MySelect";
 
-const PostFilter = ({ filter, setFilter }) => {
+const PostFilter = ({ children, filter, setFilter }) => {
   return (
     <div>
       <MyInput
@@ -11,15 +11,18 @@ const PostFilter = ({ filter, setFilter }) => {
         type="text"
         placeholder="Поиск"
       />
-      <MySelect
-        value={filter.sort}
-        onChange={selectedSort => setFilter({ ...filter, sort: selectedSort })}
-        defaultValue="Сортировка"
-        options={[
-          { value: 'title', name: 'По заголовку' },
-          { value: 'body', name: 'По описанию' }
-        ]}
-      />
+      <div className='flex-wrap'>
+        <MySelect
+          value={filter.sort}
+          onChange={selectedSort => setFilter({ ...filter, sort: selectedSort })}
+          defaultValue="Сортировка"
+          options={[
+            { value: 'title', name: 'По заголовку' },
+            { value: 'body', name: 'По описанию' }
+          ]}
+        />
+        {children}
+      </div>
     </div>
   )
 };

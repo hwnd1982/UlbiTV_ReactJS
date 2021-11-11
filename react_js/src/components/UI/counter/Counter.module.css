@@ -1,0 +1,34 @@
+.counterWrap {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid teal;
+}
+
+.counterBtn {
+  background-color: transparent;
+  padding: 5px 10px;
+  color: teal;
+  font-size: 14px;  
+  outline: none;
+  border: none;
+}
+
+.counterBtn:first-child {
+  border-right: 1px solid teal;
+}
+
+.counterBtn:last-child {
+  border-left: 1px solid teal;
+}
+
+.counterBtn:disabled,
+.counterBtn[disabled]{
+  background-color: #eeeeee;
+}
+
+.count {
+  min-width: 20px;
+  color: teal;
+  text-align: center;
+}
