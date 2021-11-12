@@ -7,11 +7,21 @@
   background-color: lightgray;
 }
 
-.navbarItems {
-  margin: 0 auto;
+.navbarContainer {
+  display: flex;
+  align-items: center;
   width: 800px;
+  margin: 0 auto;
+}
+
+.navbarBtn {
+  margin: 0;
+}
+
+.navbarItems {
   display: flex;
   justify-content: flex-end;
+  width: 100%;
   gap: 20px;
 }
 
