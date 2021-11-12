@@ -11,7 +11,10 @@ const Pagination = ({ totalPages, page, changePage }) => {
       {pagesArray.map(item =>
         <span
           key={item}
-          onClick={() => changePage(item)}
+          onClick={() => {
+            localStorage.setItem('currentPage', JSON.stringify(item));
+            changePage(item);
+          }}
           className={item === page ?
             [classes.page, classes.pageCurrent].join(' ') : classes.page}
         >
