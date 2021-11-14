@@ -1,7 +1,6 @@
 export const
-  getPageCount = (totalCount, limit) => {
-    return Math.ceil(totalCount / limit);
-  },
+  getPageCount = (totalCount, limit) => Math.ceil(totalCount / limit),
+  getCurrentPage = (limit, length) => Math.ceil(length / limit),
   getPagesArray = totalPages => {
     const pagesArray = [];
   
