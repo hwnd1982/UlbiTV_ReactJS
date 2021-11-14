@@ -8,7 +8,7 @@ const AppRouter = () => {
   const { isAuth, isLoading } = useContext(AuthContext);
 
   if (isLoading) {
-    return <Loader />
+    return <Loader />;
   }
   return (
     isAuth ?
