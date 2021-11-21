@@ -24,9 +24,9 @@ const Navbar = () => {
             Выйти
           </MyButton>}
         <div className={classes.navbarItems}>
-          <Link className={classes.navbarLinks} to='/about'>О сайте</Link>
-          <Link className={classes.navbarLinks} to='/posts'>Посты</Link>
-          <Link className={classes.navbarLinks} to='/todos'>ToDo</Link>
+          <Link className={classes.navbarLinks} to={`UlbiTV-ReactJS/about`}>О сайте</Link>
+          <Link className={classes.navbarLinks} to={`UlbiTV-ReactJS/posts`}>Посты</Link>
+          <Link className={classes.navbarLinks} to={`UlbiTV-ReactJS/todos`}>ToDo</Link>
         </div>
       </div>
     </div>

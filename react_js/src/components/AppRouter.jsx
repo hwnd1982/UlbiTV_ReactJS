@@ -10,8 +10,8 @@ const AppRouter = () => {
   if (isLoading) {
     return <Loader />;
   }
-  return (
-    isAuth ?
+  if (isAuth)
+    return (
       <Routes>
         {privateRoutes.map(route =>
           <Route
@@ -21,7 +21,9 @@ const AppRouter = () => {
             element={route.element}
           />
         )}
-      </Routes> :
+      </Routes>);
+  else
+    return (
       <Routes>
         {publicRoutes.map(route =>
           <Route
@@ -31,8 +33,7 @@ const AppRouter = () => {
             element={route.element}
           />
         )}
-      </Routes>
-  );
+      </Routes>);
 };
 
 export default AppRouter;

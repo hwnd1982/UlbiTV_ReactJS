@@ -44,7 +44,7 @@ const ListItem = ({ index, item, remove, open, add, position }) => {
       {
         (remove || open) &&
         <div className={classes.itemBtns}>
-          {open && <MyButton onClick={() => open(`/${item.name}/${index}`)}>Открыть</MyButton>}
+          {open && <MyButton onClick={() => open(`UlbiTV-ReactJS/${item.name}/${index}`)}>Открыть</MyButton>}
           {remove && <MyButton onClick={() => remove(item)}>Удалить</MyButton>}
         </div>
       }
