@@ -26,6 +26,7 @@ const Navbar = () => {
         <div className={classes.navbarItems}>
           <Link className={classes.navbarLinks} to='/about'>О сайте</Link>
           <Link className={classes.navbarLinks} to='/posts'>Посты</Link>
+          <Link className={classes.navbarLinks} to='/todos'>ToDo</Link>
         </div>
       </div>
     </div>

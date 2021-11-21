@@ -1,0 +1,30 @@
+.itemContent {
+  padding: 5px 25px 5px 5px;
+}
+
+.itemBtns {
+  display: flex;
+  flex-direction: column;
+}
+
+.hover {
+  transform: scale(1.05);
+}
+
+.completed {
+  background-color:lightgreen;
+}
+.nocompleted {
+  background-color:lightpink;
+}
+
+.item-right, .item-left  {
+  font-size: 16px;
+  display: flex;
+  padding: 15px;
+  border: 2px solid teal;
+  margin-top: 15px;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.5s;
+}

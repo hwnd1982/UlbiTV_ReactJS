@@ -1,8 +1,8 @@
 import React from "react";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import PostItem from "./PostItem";
+import ListItem from "../List/ListItem";
 
-const PostsList = ({ posts, title, remove }) => {
+const PostsList = ({ posts, title, remove, open }) => {
   if (!posts.length) {
     return (
       <h1 style={{ textAlign: 'center' }}>
@@ -10,6 +10,7 @@ const PostsList = ({ posts, title, remove }) => {
       </h1>
     );
   }
+
   return (
     <div>
       <h1 style={{ textAlign: 'center' }}>
@@ -20,9 +21,9 @@ const PostsList = ({ posts, title, remove }) => {
           <CSSTransition
             key={post.id}
             timeout={500}
-            classNames="post"
+            classNames="item"
           >
-            <PostItem index={isNaN(post.id) ? index + 1 : post.id} post={post} remove={remove} />
+            <ListItem index={isNaN(post.id) ? index + 1 : post.id} item={{ ...post, name: 'posts' }} remove={remove} open={open} />
           </CSSTransition>
         )}
       </TransitionGroup>

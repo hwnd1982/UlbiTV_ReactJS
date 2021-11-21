@@ -16,13 +16,13 @@ export const
 
     return sortedPosts;
   },
-  usePosts = (posts, sort, query) => {
+  usePosts = (posts, sort, field, query) => {
     const
       sortedPosts = useSortesPost(posts, sort),
       sortedAndSearchedPosts = useMemo(() => {
         if (sortedPosts)
-          return sortedPosts.filter(post => post.title.toLowerCase().includes(query.toLowerCase()));
-      }, [query, sortedPosts]);
+          return sortedPosts.filter(post => post[field].toLowerCase().includes(query.toLowerCase()));
+      }, [field, query, sortedPosts]);
     
     return sortedAndSearchedPosts;
   };
